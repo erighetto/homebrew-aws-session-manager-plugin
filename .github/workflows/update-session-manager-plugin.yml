@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   update:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -23,8 +23,16 @@ jobs:
       - name: Update cask
         run: python3 scripts/update_session_manager_plugin.py
 
+      - name: Tap repo
+        run: brew tap erighetto/homebrew-aws-session-manager-plugin "$GITHUB_WORKSPACE"
+
+      - name: Validate generated cask
+        run: |
+          brew style Casks/session-manager-plugin.rb
+          brew audit --cask session-manager-plugin
+
       - name: Show diff
-        run: git diff -- Casks/session-manager-plugin.rb || true
+        run: git diff -- Casks/session-manager-plugin.rb
 
       - name: Commit changes
         run: |
@@ -32,8 +40,9 @@ jobs:
             echo "No changes to commit"
             exit 0
           fi
+          version="$(ruby -e 'puts File.read("Casks/session-manager-plugin.rb")[/version "([^"]+)"/, 1]')"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add Casks/session-manager-plugin.rb
-          git commit -m "chore: update session-manager-plugin cask"
+          git commit -m "chore: update session-manager-plugin to ${version}"
           git push
