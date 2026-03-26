@@ -1,15 +1,56 @@
-# homebrew-aws-session-manager-plugin
+# Homebrew AWS Session Manager Plugin
 
-Community/team-owned Homebrew tap for AWS tooling that the team treats as operationally critical.
+This repository provides a maintained Homebrew tap for installing the AWS Session Manager Plugin on macOS.
+
+It is designed for teams that rely on AWS Systems Manager Session Manager as a primary access mechanism (SSH replacement) and need a stable, reproducible installation method.
+
+---
 
 ## Why this tap exists
 
-Homebrew core is deprecating the official `session-manager-plugin` cask, while the team still depends on AWS Session Manager operationally.
+The official Homebrew cask for the AWS Session Manager Plugin has been deprecated due to macOS Gatekeeper requirements.
 
-This tap provides a controlled macOS distribution channel for the AWS Session Manager plugin using AWS's signed installer (`.pkg`) flow.
+At the same time, AWS does not provide an official Homebrew distribution channel.
+
+This creates a gap for teams that rely on Session Manager as part of their infrastructure.
+
+This tap fills that gap by:
+
+* Following the official AWS distribution
+* Providing version pinning with SHA256 verification
+* Enabling reproducible installations across teams
+* Supporting automated updates
+
+## Features
+
+Version pinning with SHA256 verification
+Automated updates based on upstream releases
+Support for both Intel and Apple Silicon
+Alignment with AWS official installers
+Designed for team-wide standardization
+
+## Use cases
+
+This tap is particularly useful when:
+
+* Session Manager is enforced as the only access method (no SSH)
+* Teams need reproducible developer onboarding
+* CI/CD pipelines rely on SSM sessions
+* Direct SSH access is restricted or disabled
+
+## How it works
+
+This tap uses the official AWS distribution artifacts and wraps them in a Homebrew cask.
+
+It does not modify the upstream binaries.
+
+Updates are automated by checking upstream releases and regenerating the cask with updated version and checksums.
+
+## Disclaimer
 
 This project is not affiliated with or endorsed by Amazon Web Services (AWS).
-It is a public, team-maintained Homebrew tap for distributing the AWS Session Manager plugin on macOS.
+
+It uses official AWS distribution artifacts and does not modify the upstream binaries.
 
 ## Install
 
@@ -23,6 +64,17 @@ brew install --cask session-manager-plugin
 ```bash
 session-manager-plugin --version
 ```
+
+## Uninstall
+
+```bash
+brew uninstall --cask session-manager-plugin
+```
+
+This cask removes:
+
+- `/usr/local/sessionmanagerplugin`
+- `/usr/local/bin/session-manager-plugin`
 
 ## What this tap follows
 
@@ -56,18 +108,6 @@ You can also run it locally:
 python3 scripts/update_session_manager_plugin.py
 ```
 
-## Uninstall
+## License
 
-```bash
-brew uninstall --cask session-manager-plugin
-```
-
-This cask removes:
-
-- `/usr/local/sessionmanagerplugin`
-- `/usr/local/bin/session-manager-plugin`
-
-## Caveat
-
-This is not an official AWS tap.
-It is a public, team-maintained distribution channel for a tool the team depends on operationally.
+MIT
