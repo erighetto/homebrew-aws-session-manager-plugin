@@ -1,14 +1,14 @@
 cask "session-manager-plugin" do
-  version "1.2.792.0"
+  version "1.2.804.0"
 
   on_arm do
-    sha256 "c68f8a009266a159bc03a5265b1492c66226fc758ce91208a58d23300a6746c0"
+    sha256 "986f37bad62c9bea257de3f2a8189a8c07aae6c498f83afe7d9e688be07fda24"
 
     url "https://s3.amazonaws.com/session-manager-downloads/plugin/#{version}/mac_arm64/session-manager-plugin.pkg",
         verified: "s3.amazonaws.com/session-manager-downloads/plugin/"
   end
   on_intel do
-    sha256 "7d90a43c415ddd33388e9c67e113a824e2269f56c27a7211b1da30bf42340571"
+    sha256 "cd9a0249d9f451e41902f5a27c4cab40cc7beda85ba6635fe409de36d9e0d797"
 
     url "https://s3.amazonaws.com/session-manager-downloads/plugin/#{version}/mac/session-manager-plugin.pkg",
         verified: "s3.amazonaws.com/session-manager-downloads/plugin/"
