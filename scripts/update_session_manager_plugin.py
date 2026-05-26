@@ -142,7 +142,7 @@ def build_cask(version: str, arm_sha: str, intel_sha: str) -> str:
             strategy :header_match
           end
 
-          depends_on macos: ">= :catalina"
+          depends_on macos: :catalina
 
           pkg "session-manager-plugin.pkg"
           binary "/usr/local/sessionmanagerplugin/bin/session-manager-plugin"

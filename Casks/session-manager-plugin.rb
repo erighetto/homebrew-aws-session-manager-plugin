@@ -24,7 +24,7 @@ cask "session-manager-plugin" do
     strategy :header_match
   end
 
-  depends_on macos: ">= :catalina"
+  depends_on macos: :catalina
 
   pkg "session-manager-plugin.pkg"
   binary "/usr/local/sessionmanagerplugin/bin/session-manager-plugin"
